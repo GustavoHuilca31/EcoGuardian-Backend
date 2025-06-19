@@ -42,11 +42,16 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_bacbe6dea3ab415e86ab74115e206d85 }}
+
     - name: Deploy to Azure Web App
       id: deploy-to-webapp
       uses: azure/webapps-deploy@v2
       with:
-            app-name: 'EcoGuardian'
-            slot-name: 'Production'
-            publish-profile: ${{ secrets.AzureAppService_PublishProfile_bacbe6dea3ab415e86ab74115e206d85 }}
-            images: 'index.docker.io/gustavohuilca/ecoguardian:${{ github.sha }}'
+        app-name: 'EcoGuardian'
+        slot-name: 'Production'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_bacbe6dea3ab415e86ab74115e206d85 }}
+        images: 'index.docker.io/gustavohuilca/ecoguardian:${{ github.sha }}'
