@@ -16,11 +16,11 @@ builder.Services.AddInfrastructureDependencies(builder, configuration);
 builder.Services.AddApplicationDependencies();
 builder.Services.AddInterfaceDependencies(builder);
 
+var port = Environment.GetEnvironmentVariable("PORT") ?? "9080";
 builder.WebHost.ConfigureKestrel(options =>
 {
-    options.ListenAnyIP(9080); 
+    options.ListenAnyIP(int.Parse(port));
 });
-
 
 
 var app = builder.Build();
