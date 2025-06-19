@@ -35,22 +35,20 @@ jobs:
         file: EcoGuardian-Backend/Dockerfile
 
   deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    environment:
-      name: 'production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+  runs-on: ubuntu-latest
+  needs: build
+  environment:
+    name: 'production'
+    url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
-    steps:
-    - name: Azure Login
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AzureAppService_PublishProfile_bacbe6dea3ab415e86ab74115e206d85 }}
-
+  steps:
     - name: Deploy to Azure Web App
       id: deploy-to-webapp
       uses: azure/webapps-deploy@v2
       with:
         app-name: 'EcoGuardian'
+        slot-name: 'Production'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_bacbe6dea3ab415e86ab74115e206d85 }}
+        images: 'index.docker.io/gustavohuilca/ecoguardian:${{ github.sha }}'
         slot-name: 'Production'
         images: 'index.docker.io/gustavohuilca/ecoguardian:${{ github.sha }}'
