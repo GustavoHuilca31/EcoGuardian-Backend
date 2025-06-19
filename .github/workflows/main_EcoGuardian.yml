@@ -53,5 +53,4 @@ jobs:
       with:
         app-name: 'EcoGuardian'
         slot-name: 'Production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_bacbe6dea3ab415e86ab74115e206d85 }}
         images: 'index.docker.io/gustavohuilca/ecoguardian:${{ github.sha }}'
