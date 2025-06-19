@@ -29,10 +29,10 @@ jobs:
     - name: Build and push container image to registry
       uses: docker/build-push-action@v3
       with:
-          context: .
-          push: true
-          tags: index.docker.io/gustavohuilca/ecoguardian:${{ github.sha }}
-          file: ./Dockerfile
+        context: .
+        push: true
+        tags: index.docker.io/gustavohuilca/ecoguardian:${{ github.sha }}
+        file: EcoGuardian-Backend/Dockerfile
 
   deploy:
     runs-on: ubuntu-latest
