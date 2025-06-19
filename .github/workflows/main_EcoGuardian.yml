@@ -23,16 +23,15 @@ jobs:
       uses: docker/login-action@v2
       with:
         registry: https://index.docker.io/v1/
-        username: ${{ secrets.AzureAppService_ContainerUsername_54a733f9440f4f649b14ec4a66384b7c }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_13b442b71e1e4eeca8de3c2ae022adfb }}
+        username: ${{ secrets.AzureAppService_ContainerUsername_2d40700db5654b899cf0bbdca892ca3e }}
+        password: ${{ secrets.AzureAppService_ContainerPassword_d73b89f8f6134c13a7d2b5cc9c891090 }}
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v3
       with:
-        context: .
         push: true
-        tags: index.docker.io/gustavohuilca/ecoguardian:${{ github.sha }}
-        file: EcoGuardian-Backend/Dockerfile
+        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_2d40700db5654b899cf0bbdca892ca3e }}/gustavohuilca/ecoguardian:${{ github.sha }}
+        file: ./Dockerfile
 
   deploy:
     runs-on: ubuntu-latest
@@ -40,13 +39,13 @@ jobs:
     environment:
       name: 'production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-  
+
     steps:
-      - name: Deploy to Azure Web App
-        id: deploy-to-webapp
-        uses: azure/webapps-deploy@v2
-        with:
-          app-name: 'EcoGuardian'
-          slot-name: 'Production'
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_bacbe6dea3ab415e86ab74115e206d85 }}
-          images: 'index.docker.io/gustavohuilca/ecoguardian:${{ github.sha }}'
+    - name: Deploy to Azure Web App
+      id: deploy-to-webapp
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'EcoGuardian'
+        slot-name: 'production'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_5d43b9fd70284e5db5135c9b4f5aee66 }}
+        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_2d40700db5654b899cf0bbdca892ca3e }}/gustavohuilca/ecoguardian:${{ github.sha }}'
