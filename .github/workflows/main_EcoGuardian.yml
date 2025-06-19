@@ -31,7 +31,7 @@ jobs:
       with:
         push: true
         tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_2d40700db5654b899cf0bbdca892ca3e }}/gustavohuilca/ecoguardian:${{ github.sha }}
-        file: ./Dockerfile
+        file: EcoGuardian-Backend/Dockerfile
 
   deploy:
     runs-on: ubuntu-latest
