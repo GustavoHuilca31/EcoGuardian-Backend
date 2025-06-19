@@ -29,9 +29,10 @@ jobs:
     - name: Build and push container image to registry
       uses: docker/build-push-action@v3
       with:
-        push: true
-        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_54a733f9440f4f649b14ec4a66384b7c }}/gustavohuilca/ecoguardian:${{ github.sha }}
-        file: ./Dockerfile
+          context: .
+          push: true
+          tags: index.docker.io/gustavohuilca/ecoguardian:${{ github.sha }}
+          file: ./Dockerfile
 
   deploy:
     runs-on: ubuntu-latest
@@ -45,7 +46,7 @@ jobs:
       id: deploy-to-webapp
       uses: azure/webapps-deploy@v2
       with:
-        app-name: 'EcoGuardian'
-        slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_5f33ffa12785456a912dbee8ac5c9c64 }}
-        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_54a733f9440f4f649b14ec4a66384b7c }}/gustavohuilca/ecoguardian:${{ github.sha }}'
+            app-name: 'EcoGuardian'
+            slot-name: 'Production'
+            publish-profile: ${{ secrets.AzureAppService_PublishProfile_bacbe6dea3ab415e86ab74115e206d85 }}
+            images: 'index.docker.io/gustavohuilca/ecoguardian:${{ github.sha }}'
