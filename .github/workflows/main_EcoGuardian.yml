@@ -30,7 +30,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_2d40700db5654b899cf0bbdca892ca3e }}/gustavohuilca/ecoguardian:${{ github.sha }}
+        tags: index.docker.io/gustavohuilca/ecoguardian:${{ github.sha }}
         file: EcoGuardian-Backend/Dockerfile
 
   deploy:
