@@ -18,6 +18,7 @@ public class MetricCommandService(IHttpContextAccessor currentSession, IMetricRe
             { 1, "Changed Humidity" },
             { 2, "Changed Light" },
             { 3, "Changed Temperature " },
+            { 4, "Changed Water Consumption" }
         };
         var token = currentSession.HttpContext?.Request.Headers["Authorization"].ToString();
         var payload = new JwtSecurityTokenHandler().ReadJwtToken(token?.Replace("Bearer ", ""));

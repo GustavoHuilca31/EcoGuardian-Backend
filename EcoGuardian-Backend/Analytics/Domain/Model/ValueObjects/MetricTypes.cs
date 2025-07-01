@@ -10,4 +10,6 @@ public enum MetricTypes
     Light = 2,
     [Description("Temperature")]
     Temperature = 3,
+    [Description("WaterConsumption")]
+    WaterConsumption = 4,
 }
