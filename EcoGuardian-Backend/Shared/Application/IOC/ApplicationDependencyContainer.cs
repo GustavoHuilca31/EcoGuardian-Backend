@@ -1,4 +1,5 @@
 using EcoGuardian_Backend.Analytics.Application.Internal.CommandServices;
+using EcoGuardian_Backend.Analytics.Application.Internal.OutboundServices;
 using EcoGuardian_Backend.Analytics.Application.Internal.QueryServices;
 using EcoGuardian_Backend.Analytics.Domain.Repositories;
 using EcoGuardian_Backend.Analytics.Domain.Services;
@@ -33,10 +34,17 @@ using EcoGuardian_Backend.Planning.Domain.Services;
 using EcoGuardian_Backend.CRM.Application.Internal.OutboundServices;
 using EcoGuardian_Backend.ProfilePreferences.Application.Internal.CommandServices;
 using EcoGuardian_Backend.ProfilePreferences.Application.Internal.QueryServices;
+using EcoGuardian_Backend.ProfilePreferences.Domain.Model.Services;
+using EcoGuardian_Backend.ProfilePreferences.Domain.Repositories;
 using EcoGuardian_Backend.ProfilePreferences.Domain.Services;
+using EcoGuardian_Backend.ProfilePreferences.Infrastructure.Persistence.EFC.Repositories;
+using EcoGuardian_Backend.ProfilePreferences.Interfaces.REST.ACL;
+using EcoGuardian_Backend.ProfilePreferences.Interfaces.REST.ACL.Service;
 using EcoGuardian_Backend.Resources.Domain.Repositories;
 using EcoGuardian_Backend.Resources.Infrastructure.Persistence.EFC.Repositories;
 using EcoGuardian_Backend.Resources.Application.Internal.CommandServices;
+using EcoGuardian_Backend.Resources.Application.Internal.OutBoundServices;
+using EcoGuardian_Backend.Resources.Application.Internal.QueryServices;
 using EcoGuardian_Backend.Resources.Domain.Services;
 
 namespace EcoGuardian_Backend.Shared.Application.IOC;
@@ -91,8 +99,17 @@ public static class ApplicationDependencyContainer
         services.AddScoped<IMetricCommandService, MetricCommandService>();
         services.AddScoped<IMetricQueryService, MetricQueryService>();
         services.AddScoped<IMetricRepository, MetricRepository>();
+        services.AddScoped<IDeviceQueryService, DeviceQueryService>();
         services.AddScoped<IDeviceRepository, DeviceRepository>();
         services.AddScoped<IDeviceCommandService, DeviceCommandService>();
+
+        services.AddScoped<INotificationCommandService, NotificationCommandService>();
+        services.AddScoped<INotificationQueryService, NotificationQueryService>();
+        services.AddScoped<INotificationRepository, NotificationRepository>();
+        services.AddScoped<IExternalPlantService, ExternalPlantService>();
+
+        services.AddScoped<INotificationServiceFacade, NotificationServiceFacade>();
+        services.AddScoped<IExternalNotificationService, ExternalNotificationService>();
         // Register other application services as needed
         /*services.AddScoped<IExternalCustomerService, ExternalCustomerService>();*/
 

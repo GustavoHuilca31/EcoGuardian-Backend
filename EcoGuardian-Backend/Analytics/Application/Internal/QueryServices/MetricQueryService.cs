@@ -16,4 +16,19 @@ public class MetricQueryService(IMetricRepository metricRepository) : IMetricQue
     {
         return await metricRepository.GetMetricsByDeviceIdAndMetricTypeIdAsync(query.DeviceId, query.MetricTypeId);
     }
+
+    public async Task<Metric?> GetLatestMetricByDeviceIdAsync(int deviceId)
+    {
+        return await metricRepository.GetLatestMetricByDeviceIdAsync(deviceId);
+    }
+
+    public async Task<Metric?> GetLatestMetricByDeviceIdAndMetricTypeIdAsync(int deviceId, int metricTypeId)
+    {
+        return await metricRepository.GetLatestMetricByDeviceIdAndMetricTypeIdAsync(deviceId, metricTypeId);
+    }
+
+    public async Task<IEnumerable<Metric>> GetLastNMetricsByDeviceIdAndMetricTypeIdAsync(int deviceId, int metricTypeId, int n)
+    {
+        return await metricRepository.GetLastNMetricsByDeviceIdAndMetricTypeIdAsync(deviceId, metricTypeId, n);
+    }
 }

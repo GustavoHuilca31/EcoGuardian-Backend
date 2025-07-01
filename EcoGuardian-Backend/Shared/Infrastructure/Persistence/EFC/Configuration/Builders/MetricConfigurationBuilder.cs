@@ -16,6 +16,6 @@ public class MetricConfigurationBuilder : IEntityTypeConfiguration<Metric>
             .WithMany()
             .HasForeignKey(x => x.MetricTypesId);
         builder.Property(x => x.DeviceId).IsRequired();
+        builder.Property(x => x.CreatedAt).IsRequired();
     }
 }
-

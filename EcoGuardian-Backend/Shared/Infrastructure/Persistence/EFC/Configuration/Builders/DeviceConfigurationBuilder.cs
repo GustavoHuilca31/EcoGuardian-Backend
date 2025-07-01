@@ -12,6 +12,6 @@ public class DeviceConfigurationBuilder : IEntityTypeConfiguration<Device>
         builder.HasKey(d => d.Id);
         builder.Property(d => d.Id).ValueGeneratedOnAdd();
         builder.Property(d => d.Type).IsRequired().HasMaxLength(100);
-        builder.Property(d => d.ConsumerId).IsRequired();
+        builder.Property(d => d.PlantId).IsRequired();
     }
 }

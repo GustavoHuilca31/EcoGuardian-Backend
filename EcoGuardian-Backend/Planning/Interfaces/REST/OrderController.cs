@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EcoGuardian_Backend.Planning.Interfaces.REST;
 
-[Route("api/v1/[controller]")]
+[Route("api/v1/orders")]
 [ApiController]
 [ProducesResponseType(500)]
 

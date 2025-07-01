@@ -11,6 +11,7 @@ public static class InterfaceDependencyContainer
     public static IServiceCollection AddInterfaceDependencies(this IServiceCollection services, WebApplicationBuilder builder)
     {
         builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddHttpContextAccessor();
         builder.Services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "EcoGuardian API", Version = "v1" });

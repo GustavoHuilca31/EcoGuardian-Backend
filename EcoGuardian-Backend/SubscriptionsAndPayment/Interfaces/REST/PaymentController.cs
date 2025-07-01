@@ -10,7 +10,7 @@ namespace EcoGuardian_Backend.SubscriptionsAndPayment.Interfaces.REST;
 
 [Authorize]
 [ApiController]
-[Route("api/v1/[controller]")]
+[Route("api/v1/payments")]
 [Produces(MediaTypeNames.Application.Json)]
 public class PaymentController(
     IPaymentCommandService paymentCommandService,

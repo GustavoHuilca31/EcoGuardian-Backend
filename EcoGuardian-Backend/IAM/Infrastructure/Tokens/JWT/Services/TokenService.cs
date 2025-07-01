@@ -1,3 +1,4 @@
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using EcoGuardian_Backend.IAM.Application.Internal.OutboundServices;
@@ -38,10 +39,10 @@ public class TokenService(IOptions<TokenSettings> tokenSettings) : ITokenService
             SigningCredentials =
                 new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
         };
-        var tokenHandler = new JsonWebTokenHandler();
+        var tokenHandler = new JwtSecurityTokenHandler();
 
         var token = tokenHandler.CreateToken(tokenDescriptor);
-        return token;
+        return tokenHandler.WriteToken(token);
     }
 
     /**
@@ -67,6 +68,8 @@ public class TokenService(IOptions<TokenSettings> tokenSettings) : ITokenService
                 IssuerSigningKey = new SymmetricSecurityKey(key),
                 ValidateIssuer = false,
                 ValidateAudience = false,
+                ValidateLifetime = true,
+          
                 // Expiration without delay
                 ClockSkew = TimeSpan.Zero
             });

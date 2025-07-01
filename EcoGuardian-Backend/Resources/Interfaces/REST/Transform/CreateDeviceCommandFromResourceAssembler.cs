@@ -7,9 +7,10 @@ public static class CreateDeviceCommandFromResourceAssembler
 {
     public static CreateDeviceCommand ToCommandFromResource(CreateDeviceResource resource)
     {
-        return new CreateDeviceCommand(
+       return new CreateDeviceCommand(
             resource.Type,
-            resource.ConsumerId
+            resource.Voltage,
+            resource.PlantId
         );
     }
 }

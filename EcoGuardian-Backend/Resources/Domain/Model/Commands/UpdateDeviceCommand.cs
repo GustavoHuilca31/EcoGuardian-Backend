@@ -1,7 +1,8 @@
 namespace EcoGuardian_Backend.Resources.Domain.Model.Commands;
 
-public record CreateDeviceCommand(
+public record UpdateDeviceCommand(
+    int Id,
     string Type,
     decimal Voltage,
-    int PlantId
-);
+    int DeviceStateId,
+    int PlantId);

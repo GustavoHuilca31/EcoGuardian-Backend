@@ -6,5 +6,5 @@ public record MetricResource
     public decimal MetricValue { get; set; }
     public int MetricTypesId { get; set; }
     public int DeviceId { get; set; }
+    public DateTime CreatedAt { get; set; }
 }
-

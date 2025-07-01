@@ -21,4 +21,29 @@ public class MetricRepository(AppDbContext context) : BaseRepository<Metric>(con
             .Where(x => x.DeviceId == deviceId && x.MetricTypesId == metricTypeId)
             .ToListAsync();
     }
+
+    public async Task<Metric?> GetLatestMetricByDeviceIdAsync(int deviceId)
+    {
+        return await context.Set<Metric>()
+            .Where(x => x.DeviceId == deviceId)
+            .OrderByDescending(x => x.CreatedAt)
+            .FirstOrDefaultAsync();
+    }
+
+    public async Task<Metric?> GetLatestMetricByDeviceIdAndMetricTypeIdAsync(int deviceId, int metricTypeId)
+    {
+        return await context.Set<Metric>()
+            .Where(x => x.DeviceId == deviceId && x.MetricTypesId == metricTypeId)
+            .OrderByDescending(x => x.CreatedAt)
+            .FirstOrDefaultAsync();
+    }
+
+    public async Task<IEnumerable<Metric>> GetLastNMetricsByDeviceIdAndMetricTypeIdAsync(int deviceId, int metricTypeId, int n)
+    {
+        return await context.Set<Metric>()
+            .Where(x => x.DeviceId == deviceId && x.MetricTypesId == metricTypeId)
+            .OrderByDescending(x => x.CreatedAt)
+            .Take(n)
+            .ToListAsync();
+    }
 }

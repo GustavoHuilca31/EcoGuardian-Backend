@@ -1,3 +1,4 @@
+using EcoGuardian_Backend.Resources.Domain.Model.Queries;
 using EcoGuardian_Backend.Resources.Domain.Services;
 using EcoGuardian_Backend.Resources.Interfaces.REST.Resources;
 using EcoGuardian_Backend.Resources.Interfaces.REST.Transform;
@@ -7,10 +8,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EcoGuardian_Backend.Resources.Interfaces.REST;
 
-[Route("api/v1/[controller]")]
+[Route("api/v1/devices")]
 [ApiController]
 [ProducesResponseType(500)]
-public class DeviceController(IDeviceCommandService deviceCommandService) : ControllerBase
+public class DeviceController(IDeviceCommandService deviceCommandService, IDeviceQueryService deviceQueryService) : ControllerBase
 {
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
@@ -20,5 +21,26 @@ public class DeviceController(IDeviceCommandService deviceCommandService) : Cont
         var command = CreateDeviceCommandFromResourceAssembler.ToCommandFromResource(resource);
         await deviceCommandService.Handle(command);
         return StatusCode(StatusCodes.Status201Created, true);
+    }
+
+    [HttpPut("{id:int}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [AuthorizeFilter("Admin", "Domestic", "Business")]
+    public async Task<IActionResult> UpdateDevice([FromBody] UpdateDeviceResource resource, [FromRoute] int id)
+    {
+        var command = UpdateDeviceCommandFromResourceAssembler.ToCommandFromResource(id, resource);
+        await deviceCommandService.Handle(command);
+        return Ok(true);
+    }
+
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [AuthorizeFilter("Admin", "Domestic", "Business", "Specialist")]
+    public async Task<IActionResult> GetDevicesByPlantId([FromQuery] int plantId)
+    {
+        var query = new GetDevicesByPlantIdQuery(plantId);
+        var devices = await deviceQueryService.Handle(query);
+        var resources = devices.Select(DeviceResourceFromEntityAssembler.ToResourceFromEntity).ToList();
+        return Ok(resources);
     }
 }
