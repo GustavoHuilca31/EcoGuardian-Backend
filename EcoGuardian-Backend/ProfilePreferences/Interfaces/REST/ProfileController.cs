@@ -25,7 +25,7 @@ public class ProfileController(IProfileCommandService profileCommandService, IPr
     [HttpPut("{id:int}")]
     [AuthorizeFilter("Admin", "Domestic", "Business")]
     [ProducesResponseType(200)]
-    public async Task<IActionResult> UpdateProfile([FromBody] UpdateProfileResource resource, [FromRoute] int id)
+    public async Task<IActionResult> UpdateProfile([FromForm] UpdateProfileResource resource, [FromRoute] int id)
     {
         var command = UpdateProfileCommandFromResourceAssembler.ToCommandFromResource(id, resource);
         await profileCommandService.Handle(command);

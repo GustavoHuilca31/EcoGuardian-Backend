@@ -3,5 +3,5 @@ namespace EcoGuardian_Backend.CRM.Interfaces.Rest.Resources;    public record Re
         int PlantId,
         string Title,
         string QuestionText,
-        List<string>? ImageUrls
+        List<IFormFile>? ImageUrls
     );

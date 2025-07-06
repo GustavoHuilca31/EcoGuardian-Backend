@@ -1,4 +1,5 @@
 using EcoGuardian_Backend.IAM.Infrastructure.Pipeline.Middleware.Extensions;
+using EcoGuardian_Backend.Shared.Application.Internal.CloudinaryStorage.Configuration;
 using EcoGuardian_Backend.Shared.Application.IOC;
 using EcoGuardian_Backend.Shared.Infrastructure.IOC;
 using EcoGuardian_Backend.Shared.Infrastructure.Persistence.EFC.Configuration;
@@ -11,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 StripeConfiguration.ApiKey = builder.Configuration["Stripe:ApiKey"];
 
-
+builder.Services.SetUpStorageService();
 builder.Services.AddInfrastructureDependencies(builder, configuration);
 builder.Services.AddApplicationDependencies();
 builder.Services.AddInterfaceDependencies(builder);

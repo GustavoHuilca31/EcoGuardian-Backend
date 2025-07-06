@@ -19,8 +19,13 @@ public class DeviceController(IDeviceCommandService deviceCommandService, IDevic
     public async Task<IActionResult> CreateDevice([FromBody] CreateDeviceResource resource)
     {
         var command = CreateDeviceCommandFromResourceAssembler.ToCommandFromResource(resource);
-        await deviceCommandService.Handle(command);
-        return StatusCode(StatusCodes.Status201Created, true);
+        var device = await deviceCommandService.Handle(command);
+        
+        return StatusCode(201, new
+        {
+            message = "Device created successfully",
+            id = device.Id
+        });
     }
 
     [HttpPut("{id:int}")]

@@ -11,9 +11,7 @@ public static class MetricResourceFromEntityAssembler
         {
             Id = metric.Id,
             MetricValue = metric.MetricValue,
-            MetricTypesId = metric.MetricTypesId,
-            DeviceId = metric.DeviceId,
-            CreatedAt = metric.CreatedAt
+            MetricTypesId = metric.MetricTypesId
         };
     }
 }

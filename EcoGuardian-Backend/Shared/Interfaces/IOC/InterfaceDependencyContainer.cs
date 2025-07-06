@@ -1,4 +1,5 @@
 using EcoGuardian_Backend.IAM.Infrastructure.Tokens.JWT.Configuration;
+using EcoGuardian_Backend.Shared.Application.Helper;
 using EcoGuardian_Backend.Shared.Interfaces.ASP.Configuration;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.OpenApi.Models;
@@ -15,6 +16,7 @@ public static class InterfaceDependencyContainer
         builder.Services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "EcoGuardian API", Version = "v1" });
+            c.OperationFilter<FileUploadOperationFilter>();
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
                 In = ParameterLocation.Header,

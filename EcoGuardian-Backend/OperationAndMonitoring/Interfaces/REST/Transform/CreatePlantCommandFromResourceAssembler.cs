@@ -1,3 +1,4 @@
+using System.Resources;
 using EcoGuardian_Backend.OperationAndMonitoring.Domain.Model.Commands;
 using EcoGuardian_Backend.OperationAndMonitoring.Interfaces.REST.Resources;
 
@@ -9,6 +10,7 @@ public class CreatePlantCommandFromResourceAssembler
     {
         return new CreatePlantCommand(
             resource.Name,
+            resource.Image,
             resource.Type,
             resource.AreaCoverage,
             resource.UserId,

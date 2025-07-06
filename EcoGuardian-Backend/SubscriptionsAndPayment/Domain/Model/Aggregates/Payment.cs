@@ -22,7 +22,7 @@ public class Payment
     
     public int ReferenceId { get; set; }
     
-    public EPaymentReferenceType ReferenceType { get; set; }
+    public string ReferenceType { get; set; } = EPaymentReferenceType.None.ToString(); // Default value for ReferenceType
     
     public DateTime CreatedAt { get; private set; }
     
@@ -39,7 +39,8 @@ public class Payment
         Amount = 0;
         UserId = 0;
         ReferenceId = 0;
-        ReferenceType = EPaymentReferenceType.None;
+        ReferenceType = EPaymentReferenceType.None.ToString(); // Default value for ReferenceType
+        // we will use the enum and convert it to string when we need to return it as a resource or persist it in the database.
     }
 
     public Payment(CreatePaymentCommand command)
@@ -51,7 +52,7 @@ public class Payment
         PaymentStatus = command.PaymentStatus;
         UserId = command.UserId;
         ReferenceId = command.ReferenceId;
-        ReferenceType = command.ReferenceType;
+        ReferenceType = ((EPaymentReferenceType)command.ReferenceId).ToString();
         CreatedAt = DateTimeConverterHelper.ToNormalizeFormat(DateTime.UtcNow);
         UpdatedAt = null;
     }

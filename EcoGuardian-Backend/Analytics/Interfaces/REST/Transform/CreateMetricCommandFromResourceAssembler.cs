@@ -9,9 +9,7 @@ public static class CreateMetricCommandFromResourceAssembler
     {
         return new CreateMetricCommand(
             resource.MetricValue,
-            resource.MetricTypesId,
-            resource.DeviceId
+            resource.MetricTypesId
         );
     }
 }
-

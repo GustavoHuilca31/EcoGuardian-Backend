@@ -14,7 +14,7 @@ public class ProfileConfigurationBuilder : IEntityTypeConfiguration<Profile>
         builder.Property(p => p.Name)
             .IsRequired()
             .HasMaxLength(100);
-        builder.Property(p =>p.UserName)
+        builder.Property(p =>p.LastName)
             .IsRequired()
             .HasMaxLength(50);
         builder.Property(p => p.Address)

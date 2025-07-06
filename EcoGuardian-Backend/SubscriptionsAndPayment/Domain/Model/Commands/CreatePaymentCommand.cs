@@ -9,6 +9,5 @@ public record CreatePaymentCommand(
     string Currency,
     string PaymentStatus,
     int UserId,
-    int ReferenceId,
-    EPaymentReferenceType ReferenceType
+    int ReferenceId
 );

@@ -16,25 +16,31 @@ namespace EcoGuardian_Backend.OperationAndMonitoring.Interfaces.REST;
 public class PlantController(IPlantCommandService plantCommandService, IPlantQueryService plantQueryService) : ControllerBase
 {
     [HttpPost]
+    [Consumes("multipart/form-data")]
     [ProducesResponseType(201)]
     [AuthorizeFilter("Admin", "Domestic", "Business")]
-    public async Task<IActionResult> CreatePlant([FromBody] CreatePlantResource resource)
+    public async Task<IActionResult> CreatePlant([FromForm] CreatePlantResource resource)
     {
         var command = CreatePlantCommandFromResourceAssembler.ToCommandFromResource(resource);
-        await plantCommandService.Handle(command);
-        return StatusCode(201,true);
+        var plant = await plantCommandService.Handle(command);
+
+        return StatusCode(201, new
+        {
+            message = "Planta creada exitosamente",
+            id = plant.Id
+        });
     }
-    
+
     [HttpPut("{id:int}")]
     [ProducesResponseType(200)]
     [AuthorizeFilter("Admin", "Domestic", "Business")]
     public async Task<IActionResult> UpdatePlant([FromBody] UpdatePlantResource resource, [FromRoute] int id)
     {
-        var command = UpdatePlantCommandFromResourceAssembler.ToCommandFromResource(id,resource);
+        var command = UpdatePlantCommandFromResourceAssembler.ToCommandFromResource(id, resource);
         await plantCommandService.Handle(command);
         return Ok(true);
     }
-    
+
     [HttpDelete("{id:int}")]
     [ProducesResponseType(200)]
     [AuthorizeFilter("Admin", "Domestic", "Business")]
@@ -44,7 +50,7 @@ public class PlantController(IPlantCommandService plantCommandService, IPlantQue
         await plantCommandService.Handle(command);
         return Ok(true);
     }
-    
+
     [HttpGet]
     [ProducesResponseType(200)]
     [AuthorizeFilter("Admin", "Domestic", "Business", "Specialist")]
@@ -54,5 +60,20 @@ public class PlantController(IPlantCommandService plantCommandService, IPlantQue
         var plants = await plantQueryService.Handle(query);
         var resources = plants.Select(PlantResourceFromEntityAssembler.ToResourceFromEntity).ToList();
         return Ok(resources);
+    }
+    [HttpGet("{id:int}")]
+    [ProducesResponseType(200)]
+    [ProducesResponseType(404)]
+    [AuthorizeFilter("Admin", "Domestic", "Business", "Specialist")]
+    public async Task<IActionResult> GetPlantById([FromRoute] int id)
+    {
+        var query = new GetPlantByIdQuery(id);
+        var plant = await plantQueryService.Handle(query);
+        if (plant == null)
+        {
+            return NotFound();
+        }
+        var resource = PlantResourceFromEntityAssembler.ToResourceFromEntity(plant);
+        return Ok(resource);
     }
 }

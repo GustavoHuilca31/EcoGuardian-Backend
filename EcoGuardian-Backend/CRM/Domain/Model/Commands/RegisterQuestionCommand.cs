@@ -9,5 +9,5 @@ public record RegisterQuestionCommand(
     string Content,
     int UserId,
     int PlantId,
-    List<string>? ImageUrls
+    List<IFormFile>? ImageUrls
 );

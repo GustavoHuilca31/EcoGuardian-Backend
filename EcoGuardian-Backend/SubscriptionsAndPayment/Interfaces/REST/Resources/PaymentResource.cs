@@ -11,7 +11,7 @@ public record PaymentResource(
     string PaymentStatus,
     int UserId,
     int ReferenceId,
-    EPaymentReferenceType ReferenceType,
+    string ReferenceType,
     DateTime CreatedAt,
     DateTime UpdatedAt
 );

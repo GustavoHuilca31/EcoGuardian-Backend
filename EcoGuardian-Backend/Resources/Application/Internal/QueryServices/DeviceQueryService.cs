@@ -11,4 +11,14 @@ public class DeviceQueryService(IDeviceRepository deviceRepository, IHttpContext
     {
         return await deviceRepository.GetByPlantIdAsync(query.PlantId);
     }
+
+    public async Task<int> Handle(GetPlantIdByIdQuery query)
+    {
+        var device = await deviceRepository.GetByIdAsync(query.Id);
+        if (device == null)
+        {
+            throw new KeyNotFoundException($"Device with ID {query.Id} not found.");
+        }
+        return device.PlantId;
+    }
 }

@@ -6,4 +6,6 @@ namespace EcoGuardian_Backend.Resources.Domain.Services;
 public interface IDeviceQueryService
 {
     Task<IEnumerable<Device>> Handle(GetDevicesByPlantIdQuery query);
+    
+    Task<int> Handle(GetPlantIdByIdQuery query);
 }

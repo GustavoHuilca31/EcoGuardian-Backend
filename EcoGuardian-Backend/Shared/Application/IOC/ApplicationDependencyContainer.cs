@@ -46,6 +46,11 @@ using EcoGuardian_Backend.Resources.Application.Internal.CommandServices;
 using EcoGuardian_Backend.Resources.Application.Internal.OutBoundServices;
 using EcoGuardian_Backend.Resources.Application.Internal.QueryServices;
 using EcoGuardian_Backend.Resources.Domain.Services;
+using EcoGuardian_Backend.Resources.Interfaces.ACL;
+using EcoGuardian_Backend.Resources.Interfaces.ACL.Service;
+using EcoGuardian_Backend.Shared.Application.Internal.CloudinaryStorage;
+using EcoGuardian_Backend.Shared.Application.Internal.CloudinaryStorage.Configuration;
+using EcoGuardian_Backend.Shared.Infrastructure.Cloudinary;
 
 namespace EcoGuardian_Backend.Shared.Application.IOC;
 
@@ -96,9 +101,10 @@ public static class ApplicationDependencyContainer
         // Analytics
         services.AddScoped<IMetricTypeCommandService, MetricTypeCommandService>();
         services.AddScoped<IMetricTypeRepository, MetricTypeRepository>();
-        services.AddScoped<IMetricCommandService, MetricCommandService>();
-        services.AddScoped<IMetricQueryService, MetricQueryService>();
-        services.AddScoped<IMetricRepository, MetricRepository>();
+        services.AddScoped<IMetricRegistryCommandService, MetricRegistryCommandService>();
+        services.AddScoped<IMetricRegistryRepository, MetricRegistryRepository>();
+        services.AddScoped<IMetricRegistryQueryService, MetricRegistryQueryService>();
+        
         services.AddScoped<IDeviceQueryService, DeviceQueryService>();
         services.AddScoped<IDeviceRepository, DeviceRepository>();
         services.AddScoped<IDeviceCommandService, DeviceCommandService>();
@@ -110,6 +116,12 @@ public static class ApplicationDependencyContainer
 
         services.AddScoped<INotificationServiceFacade, NotificationServiceFacade>();
         services.AddScoped<IExternalNotificationService, ExternalNotificationService>();
+        services.AddScoped<ICloudinaryStorage, CloudinaryStorage>();
+        services.AddScoped<IResourceContextFacade, ResourceContextFacade>();
+        services.AddScoped<IExternalResourceService, ExternalResourceService>();
+        
+        services.AddScoped<IAggregationLevelCommandService, AggregationLevelCommandService>();
+        services.AddScoped<IAggregationLevelRepository, AggregationLevelRepository>();
         // Register other application services as needed
         /*services.AddScoped<IExternalCustomerService, ExternalCustomerService>();*/
 

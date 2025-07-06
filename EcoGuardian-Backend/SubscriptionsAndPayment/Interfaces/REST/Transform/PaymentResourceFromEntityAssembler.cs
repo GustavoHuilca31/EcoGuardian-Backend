@@ -16,7 +16,7 @@ public class PaymentResourceFromEntityAssembler
             entity.PaymentStatus,
             entity.UserId,
             entity.ReferenceId,
-            entity.ReferenceType,
+            entity.ReferenceType.ToString(),
             entity.CreatedAt,
             entity.UpdatedAt ?? DateTime.UtcNow
         );

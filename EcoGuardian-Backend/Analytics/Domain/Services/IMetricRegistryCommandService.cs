@@ -2,7 +2,7 @@ using EcoGuardian_Backend.Analytics.Domain.Model.Commands;
 
 namespace EcoGuardian_Backend.Analytics.Domain.Services;
 
-public interface IMetricCommandService
+public interface IMetricRegistryCommandService
 {
-    Task Handle(CreateMetricCommand command);
+    Task Handle(CreateMetricRegistryCommand command);
 }

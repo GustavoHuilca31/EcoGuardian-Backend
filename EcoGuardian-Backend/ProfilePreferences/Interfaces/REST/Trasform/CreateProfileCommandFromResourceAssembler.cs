@@ -10,7 +10,7 @@ public class CreateProfileCommandFromResourceAssembler
         return new CreateProfileCommand(
             resource.Email,
             resource.Name,
-            resource.Username,
+            resource.LastName,
             resource.Address, 
             resource.AvatarUrl, 
             resource.UserId, 

@@ -19,9 +19,10 @@ namespace EcoGuardian_Backend.CRM.Interfaces.Rest
     {
 
         [HttpPost]
+        [Consumes("multipart/form-data")]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> RegisterQuestion([FromBody] RegisterQuestionCommand command)
+        public async Task<IActionResult> RegisterQuestion([FromForm] RegisterQuestionCommand command)
         {
             var question = await questionCommandService.Handle(command);
             var questionResource = QuestionResourceFromEntityAssembler.ToResourceFromEntity(question);
@@ -93,7 +94,8 @@ namespace EcoGuardian_Backend.CRM.Interfaces.Rest
             var question = await questionQueryService.GetQuestionById(questionId);
             if (answers == null || !answers.Any() || question == null)
             {
-                return NotFound();
+                //avoid sending error 500
+                return Ok(new List<AnswerResource>());
             }
             var answersResource = answers.Select(answer => AnswerResourceFromEntityAssembler.FromEntity(answer, question)).ToList();
             return Ok(answersResource);

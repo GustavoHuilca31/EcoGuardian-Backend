@@ -21,6 +21,6 @@ public class ProfileRepository(AppDbContext context) : BaseRepository<Profile>(c
 
     public bool IsUserNameExists(string userName)
     {
-        return context.Set<Profile>().Any((p => p.UserName == userName));
+        return context.Set<Profile>().Any(p => p.Name + p.Email + p.LastName == userName);
     }
 }

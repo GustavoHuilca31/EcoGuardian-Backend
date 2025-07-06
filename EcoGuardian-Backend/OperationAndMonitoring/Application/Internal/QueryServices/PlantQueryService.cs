@@ -12,9 +12,9 @@ public class PlantQueryService(IPlantRepository plantRepository) : IPlantQuerySe
         return await plantRepository.GetPlantsByUserIdAsync(query.UserId);
     }
 
-    public async Task<bool> Handle(GetPlantByIdQuery query)
+    public async Task<Plant> Handle(GetPlantByIdQuery query)
     {
         var plant = await plantRepository.GetByIdAsync(query.Id);
-        return plant != null;
+        return plant ?? throw new KeyNotFoundException($"Plant with ID {query.Id} not found.");
     }
 }

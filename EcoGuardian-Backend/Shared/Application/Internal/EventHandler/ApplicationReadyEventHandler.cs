@@ -23,12 +23,14 @@ public static class ApplicationReadyEventHandler
         var seedSubscriptionStatesCommand = new SeedSubscriptionStatesCommand();
         var seedOrderStatesCommand = new SeedOrderStatesCommand();
         var seedMetricTypesCommand = new SeedMetricTypesCommand();
+        var seedAggregationLevelsCommand = new SeedAggregationLevelsCommand();
         provider.On(seedWellnessCommand);
         provider.On(seedRolesCommand);
         provider.On(seedSubscriptionStatesCommand);
         provider.On(seedSubscriptionTypesCommand);
         provider.On(seedOrderStatesCommand);
         provider.On(seedMetricTypesCommand);
+        provider.On(seedAggregationLevelsCommand);
         Console.WriteLine("Application Ready Event Completed");
         
     }

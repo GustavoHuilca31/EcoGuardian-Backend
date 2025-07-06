@@ -25,7 +25,7 @@ public class DeviceCommandService : IDeviceCommandService
     }
 
 
-    public async Task Handle(CreateDeviceCommand command)
+    public async Task<Device> Handle(CreateDeviceCommand command)
     {
         var isPlantExists = await _externalPlantService.IsPlantExistsAsync(command.PlantId);
         if (!isPlantExists)
@@ -36,6 +36,8 @@ public class DeviceCommandService : IDeviceCommandService
         var device = new Device(command);
         await _deviceRepository.AddAsync(device);
         await _unitOfWork.CompleteAsync();
+        
+        return device;
     }
 
     public async Task Handle(UpdateDeviceStatusCommand command)

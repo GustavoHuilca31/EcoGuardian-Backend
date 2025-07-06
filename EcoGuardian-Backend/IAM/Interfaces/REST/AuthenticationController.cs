@@ -1,8 +1,13 @@
 using System.Net.Mime;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 using EcoGuardian_Backend.IAM.Domain.Services;
 using EcoGuardian_Backend.IAM.Infrastructure.Pipeline.Middleware.Attributes;
 using EcoGuardian_Backend.IAM.Interfaces.REST.Resources;
 using EcoGuardian_Backend.IAM.Interfaces.REST.Transform;
+using EcoGuardian_Backend.Shared.Application.Helper;
+using EcoGuardian_Backend.Shared.Application.Internal.CloudinaryStorage;
+using EcoGuardian_Backend.Shared.Infrastructure.Cloudinary;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EcoGuardian_Backend.IAM.Interfaces.REST;
@@ -11,7 +16,7 @@ namespace EcoGuardian_Backend.IAM.Interfaces.REST;
 [ApiController]
 [Route("api/v1/[controller]")]
 [Produces(MediaTypeNames.Application.Json)]
-public class AuthenticationController(IUserCommandService userCommandService) : ControllerBase
+public class AuthenticationController(IUserCommandService userCommandService, ICloudinaryStorage cloudinaryStorage) : ControllerBase
 {
 
     /**

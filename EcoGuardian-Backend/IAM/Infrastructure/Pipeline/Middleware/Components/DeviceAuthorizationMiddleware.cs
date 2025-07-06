@@ -16,7 +16,8 @@ public class DeviceAuthorizationMiddleware
 
     public async Task InvokeAsync(HttpContext context, IDeviceRepository deviceRepository)
     {
-        if (context.Request.Path.StartsWithSegments("/api/v1/metric"))
+
+        if (context.Request.Path.StartsWithSegments("/api/v1/metrics"))
         {
             var deviceIdHeader = context.Request.Headers["Device-Id"].ToString();
             var apiKeyHeader = context.Request.Headers["Api-Key"].ToString();

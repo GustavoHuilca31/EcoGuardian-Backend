@@ -5,15 +5,14 @@ public class Metric
     public int Id { get; private set; }
     public decimal MetricValue { get; private set; }
     public int MetricTypesId { get; private set; }
-    public int DeviceId { get; private set; }
-    public DateTime CreatedAt { get; private set; }
+    public int MetricRegistryId { get; private set; }
+    public MetricRegistry MetricRegistry { get; private set; }
 
-    public Metric(decimal metricValue, int metricTypesId, int deviceId)
+    public Metric(decimal metricValue, int metricTypesId, int metricRegistryId)
     {
         MetricValue = metricValue;
         MetricTypesId = metricTypesId;
-        DeviceId = deviceId;
-        CreatedAt = DateTime.UtcNow;
+        MetricRegistryId = metricRegistryId;
     }
 
     private Metric() { }

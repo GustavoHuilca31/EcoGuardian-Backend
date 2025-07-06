@@ -8,4 +8,9 @@ public class ExternalPlantService(IMonitorinContextFacade monitoringContextFacad
     {
         return await monitoringContextFacade.CheckPlantExists(plantId);
     }
+
+    public async Task<int> GetUserIdByPlantIdAsync(int plantId)
+    {
+        return await monitoringContextFacade.GetUserIdByPlantIdAsync(plantId);
+    }
 }

@@ -10,7 +10,7 @@ public class ProfileResourceFromEntityAssembler
         return new ProfileResource(
             entity.Id,
             entity.Name,
-            entity.UserName,
+            entity.LastName,
             entity.Email,
             entity.Address,
             entity.AvatarUrl,

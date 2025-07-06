@@ -28,6 +28,8 @@ public class PlantConfigurationBuilder : IEntityTypeConfiguration<Plant>
             .IsRequired();
         builder.Property(x => x.UserId)
             .IsRequired();
+        builder.Property(x => x.Image)
+            .IsRequired();
         builder.Property(x => x.CreatedAt);
         builder.Property(x => x.UpdatedAt);
         builder.HasOne<WellnessState>().WithMany().HasForeignKey(x => x.WellnessStateId);

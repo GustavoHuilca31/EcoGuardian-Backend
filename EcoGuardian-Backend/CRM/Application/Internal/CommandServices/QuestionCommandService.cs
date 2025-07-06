@@ -1,13 +1,16 @@
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 using EcoGuardian_Backend.CRM.Application.Internal.OutboundServices;
 using EcoGuardian_Backend.CRM.Domain.Model.Aggregates;
 using EcoGuardian_Backend.CRM.Domain.Model.Commands;
 using EcoGuardian_Backend.CRM.Domain.Repositories;
 using EcoGuardian_Backend.CRM.Domain.Services;
+using EcoGuardian_Backend.Shared.Application.Internal.CloudinaryStorage;
 using EcoGuardian_Backend.Shared.Domain.Repositories;
 
 namespace EcoGuardian_Backend.CRM.Application.Internal.CommandServices;
 
-public class QuestionCommandService(IQuestionRepository questionRepository, IUnitOfWork unitOfWork, IExternalUserServiceCRM externalUserService) : IQuestionCommandService
+public class QuestionCommandService(IQuestionRepository questionRepository, IUnitOfWork unitOfWork, IExternalUserServiceCRM externalUserService, ICloudinaryStorage cloudinaryStorage) : IQuestionCommandService
 {
     public async Task<Question> Handle(RegisterQuestionCommand command)
     {
@@ -24,9 +27,24 @@ public class QuestionCommandService(IQuestionRepository questionRepository, IUni
         }
 
         var question = new Question(command);
-        if(command.ImageUrls != null && command.ImageUrls.Any())
+        if (command.ImageUrls != null && command.ImageUrls.Any())
         {
-            question.AddImages(command.ImageUrls);
+            var imageUrls = new List<string>();
+            foreach (var image in command.ImageUrls)
+            {
+                var publicId = $"{command.UserId}/{command.PlantId}/{Guid.NewGuid()}";
+                var uploadParams = new ImageUploadParams
+                {
+                    File = new FileDescription(image.FileName, image.OpenReadStream()),
+                    PublicId = publicId,
+                    Overwrite = true,
+                    AllowedFormats = ["jpg", "png", "gif", "webp"],
+                };
+                await cloudinaryStorage.UploadImage(uploadParams);
+                var result = await cloudinaryStorage.GetImage(publicId);
+                imageUrls.Add(result ?? string.Empty);
+            }
+            question.AddImages(imageUrls);
         }
         await questionRepository.AddAsync(question);
         await unitOfWork.CompleteAsync();

@@ -2,6 +2,7 @@ namespace EcoGuardian_Backend.OperationAndMonitoring.Domain.Model.Commands;
 
 public record CreatePlantCommand(
     string Name,
+    IFormFile Image,
     string Type,
     int AreaCoverage,
     int UserId,

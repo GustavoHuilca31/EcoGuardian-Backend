@@ -12,10 +12,12 @@ public class MetricConfigurationBuilder : IEntityTypeConfiguration<Metric>
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedOnAdd();
         builder.Property(x => x.MetricValue).IsRequired();
+        builder.HasOne(x => x.MetricRegistry)
+            .WithMany(r => r.Metrics)
+            .HasForeignKey(x => x.MetricRegistryId)
+            .OnDelete(DeleteBehavior.Cascade);
         builder.HasOne<MetricType>()
             .WithMany()
             .HasForeignKey(x => x.MetricTypesId);
-        builder.Property(x => x.DeviceId).IsRequired();
-        builder.Property(x => x.CreatedAt).IsRequired();
     }
 }

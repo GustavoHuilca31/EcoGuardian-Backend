@@ -20,7 +20,8 @@ public class PlantResourceFromEntityAssembler
             CreatedAt = plant.CreatedAt,
             UpdatedAt = plant.UpdatedAt,
             IsPlantation = plant.IsPlantation,
-            WellnessStateId = plant.WellnessStateId
+            WellnessStateId = plant.WellnessStateId,
+            Image = plant.Image
         };
     }
 }

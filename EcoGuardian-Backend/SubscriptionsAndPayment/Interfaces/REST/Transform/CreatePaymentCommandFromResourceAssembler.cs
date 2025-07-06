@@ -14,8 +14,7 @@ public class CreatePaymentCommandFromResourceAssembler
             resource.Currency,
             resource.PaymentStatus,
             resource.UserId,
-            resource.ReferenceId,
-            resource.ReferenceType
-        );
+            resource.ReferenceId
+            );
     }
 }

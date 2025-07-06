@@ -10,6 +10,7 @@ public class UpdateProfileCommandFromResourceAssembler
         return new UpdateProfileCommand(
             id,
             resource.Name,
+            resource.LastName,
             resource.Address,
             resource.AvatarUrl
         );

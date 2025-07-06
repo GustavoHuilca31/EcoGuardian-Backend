@@ -8,6 +8,8 @@ public class Plant
     public int Id { get; }
     
     public string Name { get; private set; }
+    
+    public string Image { get; set; } = string.Empty; 
     public string Type { get; private set; }
     public int AreaCoverage { get; private set; }
     public int UserId { get; private set; }
@@ -32,6 +34,7 @@ public class Plant
         UpdatedAt = null;
         IsPlantation = false;
         WellnessStateId = 0;
+        Image = string.Empty;
     }
 
     public Plant(CreatePlantCommand command)
@@ -47,6 +50,7 @@ public class Plant
         UpdatedAt = null;
         IsPlantation = command.IsPlantation;
         WellnessStateId = command.WellnessStateId;
+        Image = string.Empty;
     }
 
     public void Update(UpdatePlantCommand command)

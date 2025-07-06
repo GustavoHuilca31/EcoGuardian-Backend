@@ -6,5 +6,5 @@ namespace EcoGuardian_Backend.OperationAndMonitoring.Domain.Services;
 public interface IPlantQueryService
 {
     Task<IEnumerable<Plant>> Handle(GetPlantsByUserIdQuery query);
-    Task<bool> Handle(GetPlantByIdQuery query);
+    Task<Plant> Handle(GetPlantByIdQuery query);
 }
