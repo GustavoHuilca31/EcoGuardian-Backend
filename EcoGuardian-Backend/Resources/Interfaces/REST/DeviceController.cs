@@ -48,4 +48,15 @@ public class DeviceController(IDeviceCommandService deviceCommandService, IDevic
         var resources = devices.Select(DeviceResourceFromEntityAssembler.ToResourceFromEntity).ToList();
         return Ok(resources);
     }
+    
+    [HttpGet("all")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [AuthorizeFilter("Admin", "Domestic", "Business", "Specialist")]
+    public async Task<IActionResult> GetAllDevices()
+    {
+        var query = new GetAllDevicesQuery();
+        var devices = await deviceQueryService.Handle(query);
+        var resources = devices.Select(DeviceResourceFromEntityAssembler.ToResourceFromEntity).ToList();
+        return Ok(resources);
+    }
 }

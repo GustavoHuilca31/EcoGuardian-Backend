@@ -81,4 +81,13 @@ public class PaymentController(
         var resources = payments.Select(PaymentResourceFromEntityAssembler.ToResourceFromEntity).ToList();
         return Ok(resources);
     }
+    
+    [HttpPut("{paymentId:int}")]
+    [ProducesResponseType(200)]
+    public async Task<IActionResult> UpdatePayment([FromBody] UpdatePaymentResource resource, [FromRoute] int paymentId)
+    {
+        var command = UpdatePaymentCommandFromResourceAssembler.ToCommandFromResource(paymentId, resource);
+        await paymentCommandService.Handle(command);
+        return Ok(true);
+    }
 }

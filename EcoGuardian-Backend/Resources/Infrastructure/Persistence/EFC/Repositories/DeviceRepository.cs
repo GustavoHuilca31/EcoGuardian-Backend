@@ -15,4 +15,10 @@ public class DeviceRepository(AppDbContext context) :BaseRepository<Device>(cont
             .Where(d => d.PlantId == plantId)
             .ToListAsync();
     }
+    
+    public async Task<IEnumerable<Device>> GetAllDevicesAsync()
+    {
+        return await context.Set<Device>()
+            .ToListAsync();
+    }
 }

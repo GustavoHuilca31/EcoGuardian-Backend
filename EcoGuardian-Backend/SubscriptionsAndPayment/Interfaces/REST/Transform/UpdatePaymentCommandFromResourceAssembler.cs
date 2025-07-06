@@ -3,19 +3,20 @@ using EcoGuardian_Backend.SubscriptionsAndPayment.Interfaces.REST.Resources;
 
 namespace EcoGuardian_Backend.SubscriptionsAndPayment.Interfaces.REST.Transform;
 
-public class CreatePaymentCommandFromResourceAssembler
+public class UpdatePaymentCommandFromResourceAssembler
 {
-    public static CreatePaymentCommand ToCommandFromResource(CreatePaymentResource resource)
+    public static UpdatePaymentCommand ToCommandFromResource(int id, UpdatePaymentResource resource)
     {
-        return new CreatePaymentCommand(
-            resource.PaymentIntentId,
-            resource.PaymentMethodId,
+        return new UpdatePaymentCommand(
+            id,
             resource.Amount,
             resource.Currency,
+            resource.PaymentIntentId,
+            resource.PaymentMethodId,
             resource.PaymentStatus,
             resource.UserId,
             resource.ReferenceId,
             resource.ReferenceType
-            );
+        );
     }
 }

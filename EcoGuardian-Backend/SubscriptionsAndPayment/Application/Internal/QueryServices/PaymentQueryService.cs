@@ -26,4 +26,9 @@ public class PaymentQueryService(IPaymentRepository paymentRepository) : IPaymen
     {
         return paymentRepository.FindByPaymentIntentIdAsync(query.PaymentIntentId);
     }
+
+    public Task<Payment?> Handle(GetPaymentById query)
+    {
+        return paymentRepository.GetPaymentByIdAsync(query.PaymentId);
+    }
 }

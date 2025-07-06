@@ -18,7 +18,7 @@ public class MetricRegistry
     {
         DeviceId = deviceId;
         CreatedAt = DateTime.UtcNow;
-        AggregationLevelId = 1; //1 is the default aggregation level (None get all metrics)
+        AggregationLevelId = 1; 
     }
 
     public MetricRegistry(int deviceId, DateTime createdAt, ICollection<Metric> metrics, int aggregationLevelId)

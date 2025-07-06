@@ -3,5 +3,7 @@
 public interface IExternalResourceService
 {
     Task<int> GetUserIdByDeviceIdAsync(int deviceId);
+    
+    Task<int> GetPlantIdByDeviceIdAsync(int deviceId);
 }
 

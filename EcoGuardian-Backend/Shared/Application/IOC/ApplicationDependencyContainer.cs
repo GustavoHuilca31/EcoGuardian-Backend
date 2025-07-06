@@ -62,6 +62,7 @@ public static class ApplicationDependencyContainer
         // Example: services.AddScoped<IExampleService, ExampleService>();
 
         // Register command handlers
+        services.AddScoped<IExternalPlantEvaluatedService, ExternalPlantEvaluatedService>();
         services.AddScoped<IPlantCommandService, PlantCommandService>();
         services.AddScoped<IPlantQueryService, PlantQueryService>();
         services.AddScoped<IWellnessStateCommandService, WellnessCommandService>();

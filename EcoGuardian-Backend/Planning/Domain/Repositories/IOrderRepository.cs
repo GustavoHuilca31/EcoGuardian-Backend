@@ -6,4 +6,5 @@ namespace EcoGuardian_Backend.Planning.Domain.Repositories;
 public interface IOrderRepository : IBaseRepository<Order>
 {
     Task<IEnumerable<Order>> GetOrdersByConsumerIdAsync(int consumerId);
+    Task<IEnumerable<Order>> GetAllOrdersAsync();
 }

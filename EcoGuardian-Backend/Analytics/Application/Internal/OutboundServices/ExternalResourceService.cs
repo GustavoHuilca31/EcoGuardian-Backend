@@ -9,5 +9,10 @@ public class ExternalResourceService(IResourceContextFacade resourceContextFacad
     {
         return await resourceContextFacade.GetUserIdByDeviceIdAsync(deviceId);
     }
+
+    public async Task<int> GetPlantIdByDeviceIdAsync(int deviceId)
+    {
+        return await resourceContextFacade.GetPlantIdByDeviceIdAsync(deviceId);
+    }
 }
 

@@ -15,4 +15,10 @@ public class OrderRepository(AppDbContext context) : BaseRepository<Order>(conte
             .Where(x => x.ConsumerId == consumerId)
             .ToListAsync();
     }
+    public async Task<IEnumerable<Order>> GetAllOrdersAsync()
+    {
+        return await context.Set<Order>()
+            .Include(x => x.OrderDetails)
+            .ToListAsync();
+    }
 }

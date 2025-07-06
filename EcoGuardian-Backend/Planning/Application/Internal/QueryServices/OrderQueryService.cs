@@ -11,4 +11,9 @@ public class OrderQueryService(IOrderRepository repository) : IOrderQueryService
     {
         return repository.GetOrdersByConsumerIdAsync(query.ConsumerId);
     }
+
+    public Task<IEnumerable<Order>> Handle(GetAllOrdersQuery query)
+    {
+        return repository.GetAllOrdersAsync();
+    }
 }

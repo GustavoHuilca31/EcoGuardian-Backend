@@ -29,8 +29,14 @@ public class PaymentRepository(AppDbContext context) : BaseRepository<Payment>(c
 
     public async Task<IEnumerable<Payment>> GetPaymentsBySubscriptionType(string subscriptionType)
     {
-        return await context.Set<Payment>() 
+        return await context.Set<Payment>()
             .Where(payment => payment.ReferenceType.ToString() == subscriptionType)
             .ToListAsync();
+    }
+
+    public Task<Payment?> GetPaymentByIdAsync(int paymentId)
+    {
+        return context.Set<Payment>()
+            .FirstOrDefaultAsync(payment => payment.Id == paymentId);
     }
 }

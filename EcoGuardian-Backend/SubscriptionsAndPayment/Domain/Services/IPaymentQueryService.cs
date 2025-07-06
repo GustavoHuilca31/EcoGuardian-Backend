@@ -10,4 +10,5 @@ public interface IPaymentQueryService
     Task<IEnumerable<Payment>> Handle(GetPaymentsBySubscriptionType query);
     
     Task<Payment?> Handle(GetPaymentByPaymentIntentId query);
+    Task<Payment?> Handle(GetPaymentById query);
 }

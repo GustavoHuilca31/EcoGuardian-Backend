@@ -33,4 +33,22 @@ public class MonitorinContextFacade(IPlantCommandService plantCommandService, IP
         }
         return plant.UserId;
     }
+
+    public async Task<double> GetPlantThresholdByPlantId(int id, int metricTypeId)
+    {
+        var query = new GetPlantByIdQuery(id);
+        var plant = await plantQueryService.Handle(query);
+        if (plant == null)
+        {
+            throw new KeyNotFoundException($"Plant with ID {id} not found.");
+        }
+
+        return metricTypeId switch
+        {
+            2 => plant.LightThreshold,
+            3 => plant.TemperatureThreshold,
+            4 => plant.WaterThreshold,
+            _ => 0
+        };
+    }
 }

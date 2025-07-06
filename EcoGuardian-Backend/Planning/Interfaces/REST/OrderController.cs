@@ -21,8 +21,12 @@ public class OrderController(IOrderCommandService orderCommandService, IOrderQue
     public async Task<IActionResult> CreateOrder([FromBody] CreateOrderResource resource)
     {
         var command = CreateOrderCommandFromResourceAssembler.ToCommandFromResource(resource);
-        await orderCommandService.Handle(command);
-        return StatusCode(StatusCodes.Status201Created, true);
+        var order = await orderCommandService.Handle(command);
+        return StatusCode(201, new
+        {
+            message = "Order created successfully",
+            id = order.Id
+        });
     }
     
     [HttpPut("{id:int}")]
@@ -41,6 +45,18 @@ public class OrderController(IOrderCommandService orderCommandService, IOrderQue
     public async Task<IActionResult> GetOrdersByConsumerId([FromQuery] int consumerId)
     {
         var query = new GetOrdersByConsumerIdQuery(consumerId);
+        var orders = await orderQueryService.Handle(query);
+        var resources = orders.Select(OrderResourceFromEntityAssembler.ToResourceFromEntity).ToList();
+        return Ok(resources);
+    }
+    
+    // get All Orders
+    [HttpGet("all")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [AuthorizeFilter("Admin", "Domestic", "Business", "Specialist")]
+    public async Task<IActionResult> GetAllOrders()
+    {
+        var query = new GetAllOrdersQuery();
         var orders = await orderQueryService.Handle(query);
         var resources = orders.Select(OrderResourceFromEntityAssembler.ToResourceFromEntity).ToList();
         return Ok(resources);

@@ -9,4 +9,5 @@ public interface IPaymentRepository : IBaseRepository<Payment>
     Task<IEnumerable<Payment>> GetPaymentsByUserIdAsync(int userId);
     Task<Payment?> FindByPaymentIntentIdAsync(string paymentIntentId);
     Task<IEnumerable<Payment>> GetPaymentsBySubscriptionType(string subscriptionType);
+    Task<Payment?> GetPaymentByIdAsync(int paymentId);
 }

@@ -11,7 +11,7 @@ namespace EcoGuardian_Backend.OperationAndMonitoring.Interfaces.REST;
 
 [ApiController]
 [ProducesResponseType(500)]
-[Route("api/v1/[controller]")]
+[Route("api/v1/plants")]
 
 public class PlantController(IPlantCommandService plantCommandService, IPlantQueryService plantQueryService) : ControllerBase
 {

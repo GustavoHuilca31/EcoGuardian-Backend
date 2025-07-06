@@ -4,6 +4,7 @@ using EcoGuardian_Backend.SubscriptionsAndPayment.Domain.Model.Commands;
 using EcoGuardian_Backend.SubscriptionsAndPayment.Domain.Repositories;
 using EcoGuardian_Backend.SubscriptionsAndPayment.Domain.Services;
 using Stripe;
+using UpdatePaymentStatusCommand = EcoGuardian_Backend.SubscriptionsAndPayment.Interfaces.REST.Resources.UpdatePaymentStatusCommand;
 
 namespace EcoGuardian_Backend.SubscriptionsAndPayment.Application.Internal.CommandServices;
 
@@ -84,5 +85,22 @@ public class PaymentCommandService(
         {
             throw new Exception($"Error al confirmar el PaymentIntent: {ex.Message}", ex);
         }
+    }
+
+    public Task Handle(UpdatePaymentStatusCommand command)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task Handle(UpdatePaymentCommand command)
+    {
+        var payment = await paymentRepository.GetPaymentByIdAsync(command.Id);
+        if (payment == null)
+        {
+            throw new ArgumentException($"No se encontró un pago con el ID {command.Id}.");
+        }
+        payment.UpdatePayment(command);
+        paymentRepository.Update(payment);
+        await unitOfWork.CompleteAsync();
     }
 }

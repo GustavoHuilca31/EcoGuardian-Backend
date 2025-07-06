@@ -27,5 +27,6 @@ namespace EcoGuardian_Backend.CRM.Infrastructure.Persistence.EFC.Repositories
                 .Where(a => a.SpecialistId == specialistId)
                 .ToListAsync();
         }
+        
     }
 }

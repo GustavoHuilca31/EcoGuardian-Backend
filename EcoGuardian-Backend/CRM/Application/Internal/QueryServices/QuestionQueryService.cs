@@ -1,17 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 using EcoGuardian_Backend.CRM.Domain.Model.Aggregates;
 using EcoGuardian_Backend.CRM.Domain.Model.ValueObjects;
 using EcoGuardian_Backend.CRM.Domain.Repositories;
 using EcoGuardian_Backend.CRM.Domain.Services;
-using EcoGuardian_Backend.Shared.Domain.Repositories;
-
 namespace EcoGuardian_Backend.CRM.Application.Internal.QueryServices
 {
     public class QuestionQueryService(IQuestionRepository questionRepository) : IQuestionQueryService
     {
+        
+
         public async Task<Question> GetQuestionById(int questionId)
         {
             try

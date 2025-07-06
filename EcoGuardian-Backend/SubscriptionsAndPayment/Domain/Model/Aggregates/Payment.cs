@@ -52,7 +52,7 @@ public class Payment
         PaymentStatus = command.PaymentStatus;
         UserId = command.UserId;
         ReferenceId = command.ReferenceId;
-        ReferenceType = ((EPaymentReferenceType)command.ReferenceId).ToString();
+        ReferenceType = command.ReferenceType;
         CreatedAt = DateTimeConverterHelper.ToNormalizeFormat(DateTime.UtcNow);
         UpdatedAt = null;
     }
@@ -68,5 +68,18 @@ public class Payment
     {
         PaymentIntentId = command.PaymentIntentId;
         PaymentStatus = "Confirmed";
+    }
+    
+    public void UpdatePayment(UpdatePaymentCommand command)
+    {
+        Id = command.Id;
+        Amount = command.Amount;
+        Currency = command.Currency;
+        PaymentIntentId = command.PaymentIntentId;
+        PaymentMethodId = command.PaymentMethodId;
+        PaymentStatus = command.PaymentStatus;
+        UserId = command.UserId;
+        ReferenceId = command.ReferenceId;
+        ReferenceType = command.ReferenceType;
     }
 }

@@ -3,6 +3,7 @@ using EcoGuardian_Backend.CRM.Domain.Model.Commands;
 using EcoGuardian_Backend.CRM.Domain.Services;
 using EcoGuardian_Backend.CRM.Interfaces.Rest.Resources;
 using EcoGuardian_Backend.CRM.Interfaces.Rest.Transform;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EcoGuardian_Backend.CRM.Interfaces.Rest
@@ -139,6 +140,40 @@ namespace EcoGuardian_Backend.CRM.Interfaces.Rest
             var questionsResource = questions.Select(QuestionResourceFromEntityAssembler.ToResourceFromEntity).ToList();
             return Ok(questionsResource);
         }
+        
+        [HttpGet("answers/specialist")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> GetSpecialistAnswers([FromQuery] int specialistId)
+        {
+            var answers = await answerQueryService.GetAnswersBySpecialistId(specialistId);
+            if (answers == null || !answers.Any())
+            {
+                Console.WriteLine("No questions found.");
+                return Ok(new List<AnswerResource>());
+            }
+
+            List<AnswerResource?> answerResource = [];
+            foreach (var answer in answers)
+            {
+                var question = await questionQueryService.GetQuestionById(answer.QuestionId);
+                if (question != null)
+                {
+                    var answerResourceItem = AnswerResourceFromEntityAssembler.FromEntity(answer, question);
+                    if (answerResource == null)
+                    {
+                        answerResource = new List<AnswerResource?>();
+                    }
+                    answerResource.Add(answerResourceItem);
+                }
+                else
+                {
+                    Console.WriteLine($"Question with ID {answer.QuestionId} not found for answer ID {answer.Id}.");
+                }
+            }
+            return Ok(answerResource);
+        }
+        
 
     }
 }

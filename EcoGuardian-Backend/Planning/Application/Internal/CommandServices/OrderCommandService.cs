@@ -8,11 +8,13 @@ namespace EcoGuardian_Backend.Planning.Application.Internal.CommandServices;
 
 public class OrderCommandService(IOrderRepository orderRepository, IUnitOfWork unitOfWork) : IOrderCommandService
 {
-    public async Task Handle(CreateOrderCommand command)
+    public async Task<Order> Handle(CreateOrderCommand command)
     {
         var order = new Order(command);
         await orderRepository.AddAsync(order);
         await unitOfWork.CompleteAsync();
+        
+        return order;
     }
 
     public async Task Handle(UpdateOrderCommand command)

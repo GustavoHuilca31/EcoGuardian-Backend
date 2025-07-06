@@ -21,4 +21,9 @@ public class DeviceQueryService(IDeviceRepository deviceRepository, IHttpContext
         }
         return device.PlantId;
     }
+
+    public Task<IEnumerable<Device>> Handle(GetAllDevicesQuery query)
+    {
+        return deviceRepository.GetAllAsync();
+    }
 }
