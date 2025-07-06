@@ -1,5 +1,6 @@
 ﻿using EcoGuardian_Backend.Analytics.Domain.Model.Entities;
 using EcoGuardian_Backend.Analytics.Domain.Model.ValueObjects;
+using EcoGuardian_Backend.Shared.Interfaces.Helpers;
 
 namespace EcoGuardian_Backend.Analytics.Domain.Model.Aggregates;
 
@@ -17,7 +18,7 @@ public class MetricRegistry
     public MetricRegistry(int deviceId)
     {
         DeviceId = deviceId;
-        CreatedAt = DateTime.UtcNow;
+        CreatedAt = DateTimeConverterHelper.ToNormalizeFormat(DateTime.UtcNow);
         AggregationLevelId = 1; 
     }
 

@@ -34,8 +34,7 @@ public class MetricRegistryQueryService(IMetricRegistryRepository metricRegistry
             .ToList();
         if (filteredAggregated.Any())
             return filteredAggregated;
-
-        // Get raw data (non-aggregated)
+        
         var rawRegistries = existingAggregated
             .Where(r => r.AggregationLevelId == (int)AggregationLevels.None)
             .OrderBy(r => r.CreatedAt)
@@ -57,8 +56,7 @@ public class MetricRegistryQueryService(IMetricRegistryRepository metricRegistry
         return aggregatedRegistries.OrderBy(r => r.CreatedAt);
     }
 
-
-    // ✅ Hourly aggregation
+    
     private List<MetricRegistry> AggregateHourly(List<MetricRegistry> registries, int deviceId, int aggregationLevelId)
     {
         var grouped = registries.GroupBy(r => new
@@ -87,8 +85,7 @@ public class MetricRegistryQueryService(IMetricRegistryRepository metricRegistry
 
         return result;
     }
-
-    // ✅ Daily aggregation
+    
     private List<MetricRegistry> AggregateDaily(List<MetricRegistry> registries, int deviceId, int aggregationLevelId)
     {
         var grouped = registries.GroupBy(r => r.CreatedAt.Date);
@@ -110,8 +107,7 @@ public class MetricRegistryQueryService(IMetricRegistryRepository metricRegistry
 
         return result;
     }
-
-    // ✅ Weekly aggregation
+    
     private List<MetricRegistry> AggregateWeekly(List<MetricRegistry> registries, int deviceId, int aggregationLevelId)
     {
         var grouped = registries.GroupBy(r =>
@@ -137,8 +133,7 @@ public class MetricRegistryQueryService(IMetricRegistryRepository metricRegistry
 
         return result;
     }
-
-    // ✅ Monthly aggregation (actually monthly now)
+    
     private List<MetricRegistry> AggregateMonthly(List<MetricRegistry> registries, int deviceId, int aggregationLevelId)
     {
         var grouped = registries.GroupBy(r => new { r.CreatedAt.Year, r.CreatedAt.Month });
@@ -161,8 +156,7 @@ public class MetricRegistryQueryService(IMetricRegistryRepository metricRegistry
 
         return result;
     }
-
-    // ✅ Yearly aggregation (using monthly aggregation)
+    
     private List<MetricRegistry> AggregateYearly(List<MetricRegistry> registries, int
     deviceId, int aggregationLevelId)
         {
